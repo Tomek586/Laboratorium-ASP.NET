@@ -1,3 +1,5 @@
+using Laboratorium_3___Post_App.Models;
+
 namespace Laboratorium_3___Post_App
 {
     public class Program
@@ -8,6 +10,7 @@ namespace Laboratorium_3___Post_App
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IPostService, MemoryPostService>();
 
             var app = builder.Build();
 
