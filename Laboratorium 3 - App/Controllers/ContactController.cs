@@ -3,70 +3,79 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Laboratorium_3___App.Controllers
 {
-    public class ContactController : Controller
+public class ContactController : Controller
+{
+    private readonly IContactService _contactService;
+
+    public ContactController(IContactService contactService)
     {
-        private readonly IContactService _contactService;
+        _contactService = contactService;
+    }
+    
+    public IActionResult Index()
+    {
+            var x = _contactService.FindAll();
+            return View(x);
+    }
 
-        public ContactController(IContactService contactService)
-        {
-            _contactService = contactService;
-        }
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
 
-        public IActionResult Index()
+    [HttpPost]
+    public IActionResult Create(Contact model) { 
+        if (ModelState.IsValid)
         {
-            return View(_contacts.FindAll());
+            _contactService.Add(model);
+            return RedirectToAction("Index");
+        } else
+        {
+            return View(model);
         }
+    }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Update(int id)
         {
-            return View();
+            var contact = _contactService.FindById(id);
+            return View(contact);
         }
 
         [HttpPost]
-        public IActionResult Create(Contact model)
+        public IActionResult Update(Contact model)
         {
             if (ModelState.IsValid)
             {
-                _contactService.Add(model);
-                return RedirectToAction("Index");
+                _contactService.Update(model); 
+                return RedirectToAction("Index"); 
             }
             else
             {
                 return View(model);
             }
         }
-        [HttpGet]
-        public IActionResult Update(int id)
-        {
-            return View(_contacts[id]);
 
-        }
-        [HttpGet]
-        public IActionResult Update(Contact model)
-        {
-            if (ModelState.IsValid)
-            {
-                _contacts[model.Id] = model;
-            }
-            return View();
-
-        }
         [HttpGet]
         public IActionResult Details(int id)
         {
-            return View(_contacts[id]);
-
+            var contact = _contactService.FindById(id);
+            return View(contact);
         }
 
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            return View(_contacts[id]);
+            var contact = _contactService.FindById(id);
+            if (contact == null)
+            {
+                return NotFound();
+            }
 
+            _contactService.Delete(id);
+
+            return RedirectToAction("Index"); 
         }
-
-
-
     }
 }

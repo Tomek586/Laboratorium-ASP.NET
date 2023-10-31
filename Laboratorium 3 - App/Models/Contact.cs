@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace Laboratorium_3___App.Models
 {
@@ -21,6 +22,8 @@ namespace Laboratorium_3___App.Models
 
         [Display(Name = "Priorytet")]
         public Priority Priority { get; set; }
+        [HiddenInput]
+        public DateTime Created { get; set; }
 
     }
 }

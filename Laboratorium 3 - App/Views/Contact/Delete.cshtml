@@ -5,9 +5,11 @@
 @{
 }
 
-<form asp-action="Delete" method="post">
-    <input asp-for="Id" />
-    <p>Czy napewno usunąć?</p>
-    <button type="submit">Tak</button>
-    <a asp-controller="Contact" asp-action="Index">Nie</a>
+<h3>Czy na pewno chcesz usunąć ten kontakt?</h3>
+
+<form asp-action="Delete" asp-controller="Contact" method="get">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="submit" value="Usuń" class="btn btn-danger" />
+    <a asp-action="Index" asp-controller="Contact">Anuluj</a>
 </form>
