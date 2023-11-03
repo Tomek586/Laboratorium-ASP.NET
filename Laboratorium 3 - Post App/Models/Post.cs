@@ -27,5 +27,7 @@ namespace Laboratorium_3___Post_App.Models
         [StringLength(maximumLength: 200, ErrorMessage = "Za dużo znaków!")]
         public string Comment { get; set; }
 
+        public DateTime Created { get; set; }
+
     }
 }

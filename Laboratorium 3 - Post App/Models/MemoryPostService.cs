@@ -3,12 +3,17 @@
     public class MemoryPostService : IPostService
     {
         private Dictionary<int, Post> _items = new Dictionary<int, Post>();
-        
-       
+        private readonly IDateTimeProvider _dateTimeProvider;
+        public MemoryPostService(IDateTimeProvider dateTimeProvider)
+        {
+            _dateTimeProvider = dateTimeProvider;
+            
+        }
         public int Add(Post item)
         {
             int id = _items.Keys.Count != 0 ? _items.Keys.Max() : 0;
             item.Id = id + 1;
+            item.Created = _dateTimeProvider.GetDateTime();
             _items.Add(item.Id, item);
             return item.Id;
         }

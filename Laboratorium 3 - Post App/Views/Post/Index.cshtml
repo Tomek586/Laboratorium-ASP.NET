@@ -1,16 +1,17 @@
 ﻿@model List<Post>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-<h1>Lista kontaktów:</h1>
+
+<h1>Lista postów:</h1>
 <div>
     @if (Model.Count > 0)
     {
-
-
         <table class="table">
+            <colgroup>
+                <col style="width: 40%;">
+                <col style="width: 15%;">
+                <col style="width: 15%;">
+                <col style="width: 15%;">
+                <col style="width: 15%;">
+            </colgroup>
             <tr>
                 <th>
                     @Html.DisplayNameFor(i => Model[0].Content)
@@ -25,16 +26,14 @@
                     @Html.DisplayNameFor(i => Model[0].Tags)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(i => Model[0].Comment)
-                </th>
-                <th>
                     Akcje
                 </th>
             </tr>
             @foreach (var item in @Model)
             {
                 <tr>
-                    <td>
+                    <td style="white-space: pre-wrap;">
+                   
                         @item.Content
                     </td>
                     <td>
@@ -46,9 +45,7 @@
                     <td>
                         @item.Tags
                     </td>
-                    <td>
-                        @item.Comment
-                    </td>
+
                     <td>
                         <a class="btn btn-primary"
                            asp-action="Update"
@@ -67,5 +64,4 @@
             }
         </table>
     }
-
 </div>

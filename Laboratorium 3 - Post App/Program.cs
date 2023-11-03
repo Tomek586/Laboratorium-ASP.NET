@@ -11,7 +11,7 @@ namespace Laboratorium_3___Post_App
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSingleton<IPostService, MemoryPostService>();
-
+            builder.Services.AddSingleton<IDateTimeProvider, CurrentDateTimeProvider>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
